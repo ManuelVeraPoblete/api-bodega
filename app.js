@@ -1,12 +1,16 @@
 const express = require('express');
+const morgan = require('morgan'); // <-- Aquí importas morgan
 const app = express();
 require('dotenv').config();
 const sequelize = require('./config/db');
 
+// Middleware
+app.use(morgan('dev')); // <-- Aquí colocas morgan para que muestre logs en consola
+app.use(express.json());
+
+// Rutas
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
-
-app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 

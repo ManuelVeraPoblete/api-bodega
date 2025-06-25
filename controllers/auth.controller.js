@@ -9,9 +9,14 @@ exports.login = async (req, res) => {
   try {
     const foundUser = await User.findOne({ where: { username: user } });
 
+    console.log(foundUser)
+    console.log(user)
+    console.log(password)
     if (!foundUser || foundUser.status !== 'activo') {
       return res.status(401).json({ message: 'Usuario inválido o inactivo' });
     }
+
+  
 
     const validPassword = await bcrypt.compare(password, foundUser.password);
     if (!validPassword) {
