@@ -9,7 +9,11 @@ const app = express();
 
 // 🌐 Configuración de CORS
 app.use(cors({
-  origin: 'http://localhost:8080', // Frontend en React
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:8080',
+    'http://192.168.1.13:8080' // ✅ agrega esta IP si accedes desde otro equipo
+  ], // Frontend en React
   credentials: true
 }));
 

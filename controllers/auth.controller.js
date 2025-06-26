@@ -4,10 +4,10 @@ const User = require('../models/user.model');
 require('dotenv').config();
 
 exports.login = async (req, res) => {
-  const { user, password } = req.body;
+  const { username, password } = req.body;
 
   try {
-    const foundUser = await User.findOne({ where: { username: user } });
+    const foundUser = await User.findOne({ where: { username } });
 
    
     if (!foundUser || foundUser.status !== 'activo') {
@@ -39,6 +39,7 @@ exports.login = async (req, res) => {
       }
     });
   } catch (error) {
+    console.error(error)
     res.status(500).json({ message: error });
   }
 };

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 // Crear usuario
 exports.createUser = async (req, res) => {
-  const { username, password, role } = req.body;
+  const { username, nameuser, password, role } = req.body;
 
   try {
     const existing = await User.findOne({ where: { username } });
@@ -12,7 +12,7 @@ exports.createUser = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ username, password: hashedPassword, role });
+    const user = await User.create({ username, nameuser, password: hashedPassword, role });
 
     res.status(201).json(user);
   } catch (e) {
@@ -52,7 +52,8 @@ exports.softDeleteUser = async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (!user) return res.status(404).json({ message: 'No encontrado' });
 
-  user.status = 'inactivo';
+  user.status = user.status === "inactivo" ? "activo" : "inactivo";
+  
   await user.save();
   res.json({ message: 'Usuario desactivado' });
 };
