@@ -6,6 +6,7 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const supplierRoutes = require('./routes/supplier.routes');
+const accountRoutes = require('./routes/accounts.routes');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(morgan(':method :url => Status: :status'));
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/suppliers', supplierRoutes);
+app.use('/api/accounts', accountRoutes);
 
 // 🌐 Ruta base
 app.get('/', (req, res) => {
